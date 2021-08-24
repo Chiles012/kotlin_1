@@ -56,22 +56,22 @@ class MainActivity : AppCompatActivity() {
         } else {
             indexList = indexList!!-1
         }
-        txvInfo.text = "nombre: ${classmateList[indexList!!].first_name}\napellido: ${classmateList[indexList!!].last_name}\ncarrera: ${classmateList[indexList!!].career}\nedad: ${classmateList[indexList!!].age}\ndescripcion: ${classmateList[indexList!!].description}"
+        txvInfo.text = "title: ${classmateList[indexList!!].title}\nnombre: ${classmateList[indexList!!].first_name}\napellido: ${classmateList[indexList!!].last_name}\ncarrera: ${classmateList[indexList!!].career}\nedad: ${classmateList[indexList!!].age}\ndescripcion: ${classmateList[indexList!!].description}"
 
     }
 
     fun createNewPet(view: View) {
-        var random_number = (0..100).random()
+        var random_number = (0..150).random()
         var classmate: Classmate
         when(random_number) {
-            in 0..10 -> classmate = Classmate("Jeremy Uriel", "Franco Nunez", "ISSC", random_number, "Jugador de LOL")
-            in 11..50 -> classmate = Classmate("Antonio", "Perez Medina", "ISSC", random_number, null)
-            in 51..100 -> classmate = Classmate("Jazael", "Rivas MAnzano", null, random_number,"Challenger")
-            else -> classmate = Classmate("Christian Axel", "Serrano", "ISSC", random_number, null)
+            in 0..10 -> classmate = Classmate("Jeremy Uriel", "Franco Nunez", null, random_number, "Jugador de LOL", null)
+            in 11..50 -> classmate = Classmate("Antonio", "Perez Medina", "ISSC", random_number, "Alumno Regular", "Alumno")
+            in 111..120 -> classmate = Classmate("Arturo", "Vallejo Gonzalez", "ISSC", random_number, "Alumno bien portado", "Alumno")
+            in 51..100 -> classmate = Classmate("Manuel", "Miranda", "ISSC", random_number,"Trabaja en IBM", "Profesor")
+            in 101..110 -> classmate = Classmate("Jazael", "Rivas MAnzano", null, random_number,"Challenger", "Profesor")
+            else -> classmate = Classmate("Christian Axel", "Serrano", null, random_number, "Profesor de ISSC", "Profesor")
         }
 
-        println(classmate.first_name)
-        println(classmateList.size)
         var newArray = arrayOf<Classmate>(*classmateList, classmate)
         this.classmateList = newArray
         if ( indexList == null ) {
@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         toast("El nuevo alumno se llama: ${classmate.first_name} ${classmate.last_name}")
-        txvInfo.text = "nombre: ${classmate.first_name}\napellido: ${classmate.last_name}\ncarrera: ${classmate.career}\nedad: ${classmate.age}\ndescripcion: ${classmate.description}"
+        txvInfo.text = "title: ${classmate.title}\nnombre: ${classmate.first_name}\napellido: ${classmate.last_name}\ncarrera: ${classmate.career}\nedad: ${classmate.age}\ndescripcion: ${classmate.description}"
     }
 
     fun getNextPet(view: View) {
@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
         } else {
             indexList = indexList!! +1
         }
-        txvInfo.text = "nombre: ${classmateList[indexList!!].first_name}\napellido: ${classmateList[indexList!!].last_name}\ncarrera: ${classmateList[indexList!!].career}\nedad: ${classmateList[indexList!!].age}\ndescripcion: ${classmateList[indexList!!].description}"
+        txvInfo.text = "title: ${classmateList[indexList!!].title}\nnombre: ${classmateList[indexList!!].first_name}\napellido: ${classmateList[indexList!!].last_name}\ncarrera: ${classmateList[indexList!!].career}\nedad: ${classmateList[indexList!!].age}\ndescripcion: ${classmateList[indexList!!].description}"
 
     }
 
