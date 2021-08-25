@@ -9,7 +9,7 @@ import android.widget.Toast
 class MainActivity : AppCompatActivity() {
     // TEXTVIEW
     private lateinit var txvInfo: TextView
-    private lateinit var classmateList : Array<Classmate>
+    private lateinit var peopleList : Array<People>
     private var indexList: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,81 +17,69 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         txvInfo = findViewById(R.id.txvInfo)
-        this.classmateList = arrayOf<Classmate>()
+        this.peopleList = arrayOf<People>()
 
     }
 
     fun makeSound(view: View) {
-        var number_random = (0..2).random()
-        when(number_random) {
-            0 -> toast("${classmateList[indexList!!].first_name} esta dormido en clase")
-            1 -> toast("${classmateList[indexList!!].first_name} esta jugando Leage of Legend")
-            2 -> toast("${classmateList[indexList!!].first_name} ya reprobo por faltas")
-        }
+        toast(peopleList[indexList!!].getInfo())
     }
 
     fun play(view: View) {
-        var number_random = (0..2).random()
-        when(number_random) {
-            0 -> toast("${classmateList[indexList!!].first_name} tiene una duda acerca de la herencia en kotlin")
-            1 -> toast("${classmateList[indexList!!].first_name} no asistio a clase hoy")
-            2 -> toast("${classmateList[indexList!!].first_name} no le gusta la materia")
-        }
+        toast(peopleList[indexList!!].play())
     }
 
     fun eat(view: View) {
-        var number_random = (0..2).random()
-        when(number_random) {
-            0 -> toast("${classmateList[indexList!!].first_name} esta comiendo un woke")
-            1 -> toast("${classmateList[indexList!!].first_name} esta comiendo ensalada")
-            2 -> toast("${classmateList[indexList!!].first_name} no esta comiendo nada")
-        }
+        toast(peopleList[indexList!!].eat())
     }
 
     fun getPreviousPet(view: View) {
         if ( indexList == 0 ) {
-            if ( classmateList.size != 1 ) {
-                indexList = classmateList.size-1
+            if ( peopleList.size != 1 ) {
+                indexList = peopleList.size-1
             }
         } else {
             indexList = indexList!!-1
         }
-        txvInfo.text = "title: ${classmateList[indexList!!].title}\nnombre: ${classmateList[indexList!!].first_name}\napellido: ${classmateList[indexList!!].last_name}\ncarrera: ${classmateList[indexList!!].career}\nedad: ${classmateList[indexList!!].age}\ndescripcion: ${classmateList[indexList!!].description}"
+        chageText()
 
+    }
+
+    fun chageText() {
+        txvInfo.text = peopleList[indexList!!].getInfo()
     }
 
     fun createNewPet(view: View) {
         var random_number = (0..150).random()
-        var classmate: Classmate
+        var people: People
         when(random_number) {
-            in 0..10 -> classmate = Classmate("Jeremy Uriel", "Franco Nunez", null, random_number, "Jugador de LOL", null)
-            in 11..50 -> classmate = Classmate("Antonio", "Perez Medina", "ISSC", random_number, "Alumno Regular", "Alumno")
-            in 111..120 -> classmate = Classmate("Arturo", "Vallejo Gonzalez", "ISSC", random_number, "Alumno bien portado", "Alumno")
-            in 51..100 -> classmate = Classmate("Manuel", "Miranda", "ISSC", random_number,"Trabaja en IBM", "Profesor")
-            in 101..110 -> classmate = Classmate("Jazael", "Rivas MAnzano", null, random_number,"Challenger", "Profesor")
-            else -> classmate = Classmate("Christian Axel", "Serrano", null, random_number, "Profesor de ISSC", "Profesor")
+            in 0..10 -> people = Teacher("Jeremy Uriel", "Franco Nunez", 19,"Profesor de la universidad de la salle bajio en la facultd de derecho")
+            in 11..50 -> people = Teacher("Antonio", "Perez Medina", 22, "Experto en React js y aplicaciones webs")
+            in 111..120 -> people = Teacher("Arturo", "Vallejo Gonzalez", 20,"Profesor experto en ciencia de datos")
+            in 51..100 -> people = Classmate("Manuel", "Miranda", 24, "Aficionado con LOL")
+            in 101..110 -> people = Classmate("Jazael", "Rivas MAnzano", 22, "Challenger")
+            else -> people = Classmate("Christian Axel", "Serrano", 20, "Jefe de grupo del 511")
         }
 
-        var newArray = arrayOf<Classmate>(*classmateList, classmate)
-        this.classmateList = newArray
+        var newArray = arrayOf<People>(*peopleList, people)
+        this.peopleList = newArray
         if ( indexList == null ) {
             indexList = 0
         } else {
             indexList = indexList!! +1
         }
 
-        toast("El nuevo alumno se llama: ${classmate.first_name} ${classmate.last_name}")
-        txvInfo.text = "title: ${classmate.title}\nnombre: ${classmate.first_name}\napellido: ${classmate.last_name}\ncarrera: ${classmate.career}\nedad: ${classmate.age}\ndescripcion: ${classmate.description}"
+        toast(peopleList[indexList!!].getInfo())
+        chageText()
     }
 
     fun getNextPet(view: View) {
-        if ( indexList == (classmateList.size-1) ) {
+        if ( indexList == (peopleList.size-1) ) {
             indexList = 0
         } else {
             indexList = indexList!! +1
         }
-        txvInfo.text = "title: ${classmateList[indexList!!].title}\nnombre: ${classmateList[indexList!!].first_name}\napellido: ${classmateList[indexList!!].last_name}\ncarrera: ${classmateList[indexList!!].career}\nedad: ${classmateList[indexList!!].age}\ndescripcion: ${classmateList[indexList!!].description}"
-
+        chageText()
     }
 
     private fun toast(message: String) {

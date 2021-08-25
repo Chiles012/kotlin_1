@@ -1,19 +1,41 @@
 package com.example.peppers
 
-open class Classmate {
-    var first_name: String?
-    var last_name: String?
-    var career: String?
-    var age: Int? = 0
-    var description: String
-    var title: String?
+abstract class People(
+    protected val first_name: String? = "",
+    protected val last_name: String? = "",
+    private val age: Int? = 0,
+    private val description: String = ""
+) {
+    abstract val title: String
 
-    constructor(first_name: String?, last_name: String?, career: String?, age: Int?, description: String, title: String?) {
-        this.first_name = first_name
-        this.last_name = last_name
-        this.career = career
-        this.age = age
-        this.description = description
-        this.title = title
-    }
+    fun getInfo() =
+        "Your people is a: $title \\n its name is: $first_name $last_name \\n its age is $age \\n its description id $description"
+
+    abstract fun makeSound(): String
+    abstract fun play(): String
+    abstract fun eat(): String
+}
+
+class Classmate(first_name: String?, last_name: String?, age: Int?, description: String) : People(first_name, last_name, age, description) {
+
+    override val title = "classmate"
+
+    override fun makeSound() = "El alumno $first_name esta estudiando redes neuronales"
+
+    override fun play() = "El alumno $first_name esta jugando smash"
+
+    override fun eat() = "El alumno $first_name esta comiendo en su hora libre"
+
+}
+
+class Teacher(first_name: String?, last_name: String?, age: Int?, description: String) : People(first_name, last_name, age, description) {
+
+    override val title = "teacher"
+
+    override fun makeSound() = "El profesor $first_name esta ensenando algoritmos de redes neuronales"
+
+    override fun play() = "El profesor $first_name esta jugando smash"
+
+    override fun eat() = "El profesor $first_name esta comiendo en su hora libre"
+
 }
